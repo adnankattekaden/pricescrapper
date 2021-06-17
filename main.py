@@ -9,22 +9,29 @@ def get_data(urls):
     soup = BeautifulSoup(page.content, "html.parser")
     if shop_name == "bigbasket":
         vegitable_name = soup.find_all("h1", class_="GrE04")
-        price = soup.find_all("td", class_="IyLvo")
+        final_price = soup.find_all("td", class_="IyLvo")
+        price = final_price[0].get_text()
         veg = vegitable_name[0].get_text()
+
     elif shop_name == "jiomart":
         vegitable_name = soup.find_all("div", class_="title-section")
-        price = soup.find_all("div",class_="price-box")
+        price = soup.find_all("span",class_="final-price")
+
+        for i in price:
+            old_price = i.text
+            price = old_price.split(":")[1]
         veg = vegitable_name[0].get_text()
+
     elif shop_name == "klfresh":
         vegitable_name = soup.find("div", class_="mr-2")
-        price = soup.find_all("span", class_="t3-mainPrice mr-5")
-
+        final_price = soup.find_all("span", class_="t3-mainPrice mr-5")
+        price = final_price[0].get_text()
+        price = price.split("/")[0]
+        print(price)
         veg = vegitable_name.get_text()
-        print("Shop-Name:-", shop_name)
-        print("Vegitable:-", vegitable_name.get_text())
-        print("Price:-", price[0].get_text())
 
-    return shop_name,veg,price[0].get_text()
+
+    return shop_name,veg,price
 
 # BIGBASKET LINKS
 urls = [
