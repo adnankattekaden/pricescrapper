@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from links_list import urls
 
-def get_data(urls):
+def get_data(url):
     webiste_name = url.split(".")
     shop_name = webiste_name[1]
     page = requests.get(url)
@@ -38,7 +38,7 @@ vegitables_list = []
 prices_list = []
 
 for url in urls:
-    shop_name,vegitable_name,price = get_data(urls=url)
+    shop_name,vegitable_name,price = get_data(url)
     shops_list.append(shop_name)
     vegitables_list.append(vegitable_name)
     prices_list.append(price)
