@@ -27,13 +27,11 @@ def get_data(urls):
         final_price = soup.find_all("span", class_="t3-mainPrice mr-5")
         price = final_price[0].get_text()
         price = price.split("/")[0]
-        print(price)
         veg = vegitable_name.get_text()
 
 
     return shop_name,veg,price
 
-# BIGBASKET LINKS
 urls = [
     "https://www.jiomart.com/p/groceries/amaranthus-1-bunch/590003517",
     "https://www.jiomart.com/p/groceries/bhendi-okra-per-kg/590003550",
@@ -64,19 +62,19 @@ urls = [
         ]
 
 
-shop = []
-veg = []
-rs = []
+shops_list = []
+vegitables_list = []
+prices_list = []
 for url in urls:
     shop_name,vegitable_name,price = get_data(urls=url)
-    shop.append(shop_name)
-    veg.append(vegitable_name)
-    rs.append(price)
+    shops_list.append(shop_name)
+    vegitables_list.append(vegitable_name)
+    prices_list.append(price)
 
 datas = pd.DataFrame({
-    'Shop-Name': shop,
-    'Vegitable-Name': veg,
-    'Price': rs,
+    'Shop-Name': shops_list,
+    'Vegitable-Name': vegitables_list,
+    'Price': prices_list,
 })
 
 print(datas)
